@@ -4,3 +4,4 @@
 private_keys/
 *.pem
 *.sh
+*logs
