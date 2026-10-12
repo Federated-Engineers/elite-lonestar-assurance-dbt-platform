@@ -1,7 +1,10 @@
 *.terraform*
 *.tfstate*
-*venv
+*env
 private_keys/
 *.pem
 *.sh
 *logs
+target/
+dbt_packages/
+logs/
