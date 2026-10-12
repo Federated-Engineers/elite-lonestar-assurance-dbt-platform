@@ -1,0 +1,44 @@
+
+name: dbt-cd
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "dbt-transformations/**"
+
+permissions:
+  contents: read
+  id-token: write
+
+env:
+  AWS_REGION: eu-central-1
+  ECR_REPO: elite-lonestar-assurance
+  AWS_ROLE_ARN: arn:aws:iam::049417293525:role/github-actions-oidc-role
+
+jobs:
+  push-image:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: dbt-transformations
+    steps:
+      - name: checkout code
+        uses: actions/checkout@v4
+
+      - name: configure OIDC
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: ${{ env.AWS_ROLE_ARN }}
+          aws-region: ${{ env.AWS_REGION }}
+
+      - name: login to ecr
+        id: ecr-login
+        uses: aws-actions/amazon-ecr-login@v2
+
+      - name: Build and push
+        run: |
+          IMAGE=${{ steps.ecr-login.outputs.registry }}/${{ env.ECR_REPO }}
+          docker build --platform linux/amd64 -t $IMAGE:${{ github.sha }} -t $IMAGE:latest .
+          docker push $IMAGE:${{ github.sha }}
+          docker push $IMAGE:latest

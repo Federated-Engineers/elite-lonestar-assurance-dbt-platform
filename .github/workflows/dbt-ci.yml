@@ -1,0 +1,42 @@
+
+name: dbt-ci
+
+on:
+  pull_request:
+  branches: [ main ]
+  paths: 
+    - "dbt-transformations/**"
+
+jobs:
+  dbt-ci:
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout code
+        uses: actions/checkout@v4
+      
+      - name: Install requirements
+        run: pip install -r requirements.txt  
+
+      - name: build image
+        run: docker build --platform linux/amd64 -t lonestar-dbt:ci dbt-transformations
+      
+      - name: dbt parse
+        run: |
+          docker run --rm \
+            -e DBT_SNOWFLAKE_ACCOUNT='' \
+            -e USER='' \
+            -e ROLE='' \
+            -e WAREHOUSE='' \
+            -e DATABASE='' \
+            -e SCHEMA='' \
+            -e SNOWFLAKE_DBT_PRIVATE_KEY='' \
+            lonestar-dbt:ci parse --target ci
+
+      # - name: Check connection
+      #   run: dbt debug
+
+      # - name: dbt build
+      #   run: dbt build
+
+      # - name: Lint models
+      #   run: "sqlfluff lint lonestar/models"
