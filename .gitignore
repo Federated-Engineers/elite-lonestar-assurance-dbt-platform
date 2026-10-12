@@ -1,0 +1,6 @@
+*.terraform*
+*.tfstate*
+*venv
+private_keys/
+*.pem
+*.sh
