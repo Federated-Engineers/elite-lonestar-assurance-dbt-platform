@@ -1,9 +1,9 @@
 *.terraform*
 *.tfstate*
 *env
-private_keys/
+*keys/
 *.pem
-*.sh
+*env.sh
 *logs
 target/
 dbt_packages/
