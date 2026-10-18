@@ -8,7 +8,5 @@ WORKDIR /dbt
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 COPY ./lonestar .
-RUN useradd -m dbtuser && chown -R dbtuser /dbt
-USER dbtuser
-ENTRYPOINT ["dbt"]
-CMD ["--version"]
+ENTRYPOINT ["/bin/bash", "-l", "-c"]
+CMD ["./run_dbt.sh"]
