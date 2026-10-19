@@ -8,5 +8,5 @@ WORKDIR /dbt
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 COPY ./lonestar .
-ENTRYPOINT ["/bin/bash", "-l", "-c"]
+ENTRYPOINT [ "/bin/sh", "-c" ]
 CMD ["./run_dbt.sh"]
