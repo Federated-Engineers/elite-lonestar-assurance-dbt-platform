@@ -17,8 +17,5 @@ jobs:
       - name: Install requirements
         run: pip install -r requirements.txt  
 
-      - name: build image
-        run: docker build --platform linux/amd64 -t lonestar-dbt:ci dbt-transformations
-
       - name: Lint models
         run: "sqlfluff lint lonestar/models"
