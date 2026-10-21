@@ -4,5 +4,5 @@
 *venv
 private_keys/
 *.pem
-*.sh
+*env.sh
 *log*
