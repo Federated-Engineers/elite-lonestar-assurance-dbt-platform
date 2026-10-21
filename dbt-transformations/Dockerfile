@@ -6,8 +6,8 @@ RUN apt-get update \
 
 WORKDIR /dbt
 COPY requirements.txt .
-COPY run_dbt.sh .
 RUN pip install --no-cache-dir -r requirements.txt
+COPY run_dbt.sh .
 COPY ./lonestar .
 RUN chmod -R 755 .
 ENTRYPOINT [ "/bin/sh", "-c" ]
