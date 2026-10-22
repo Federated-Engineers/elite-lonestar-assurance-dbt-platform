@@ -1,6 +1,6 @@
 
 lonestar:
-  target: test
+  target: "{{ env_var('DBT_TARGET') }}"
   outputs:
     test:
       type: snowflake
@@ -13,18 +13,6 @@ lonestar:
       authenticator: snowflake_jwt
       private_key: "{{ env_var('SNOWFLAKE_DBT_PRIVATE_KEY') }}"
       threads: 4
-
-    # ci:
-    #   type: snowflake
-    #   account: "{{ env_var('DBT_SNOWFLAKE_ACCOUNT') }}"
-    #   user: "{{ env_var('DBT_USER') }}"
-    #   role: "{{ env_var('DBT_ROLE') }}"
-    #   warehouse: "{{ env_var('WAREHOUSE') }}"
-    #   database: "{{ env_var('DATABASE') }}"
-    #   schema: "{{ env_var('SCHEMA')}}"
-    #   authenticator: snowflake_jwt
-    #   private_key: "{{ env_var('SNOWFLAKE_DBT_PRIVATE_KEY') }}"
-    #   threads: 4
     
 
     production:
