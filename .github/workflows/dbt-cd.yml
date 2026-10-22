@@ -6,6 +6,7 @@ on:
     branches: [main]
     paths:
       - "dbt-transformations/**"
+      - ".github/workflows/**"
 
 permissions:
   contents: read
@@ -14,7 +15,6 @@ permissions:
 env:
   AWS_REGION: eu-central-1
   ECR_REPO: elite-lonestar-assurance
-  AWS_ROLE_ARN: arn:aws:iam::049417293525:role/github-actions-oidc-role
 
 jobs:
   push-image:
@@ -30,7 +30,7 @@ jobs:
         uses: aws-actions/configure-aws-credentials@v4
         with:
           role-to-assume: ${{ env.AWS_ROLE_ARN }}
-          aws-region: ${{ env.AWS_REGION }}
+          aws-region: ${{ vars.AWS_REGION }}
 
       - name: login to ecr
         id: ecr-login
