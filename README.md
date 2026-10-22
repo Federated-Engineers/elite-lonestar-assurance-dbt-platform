@@ -4,21 +4,30 @@ This dcoument has a walkthrough of how to use this repository to setup the dbt p
 
 ## Prerepuisites
 
-- ## setup environment variables in `env.sh` locally
+- ## setup environment variables scripts locally
+
+- ### `test-env.sh`
 
         ```bash
 
         PARENT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]:-$0}")" && pwd)"
 
+        export DBT_TARGET=test
         export DBT_SNOWFLAKE_ACCOUNT=<account_name>
-        export USER=<username>
-        export ROLE=<role>
+        export DBT_USER=<username>
+        export DBT_ROLE=<role>
         export WAREHOUSE=<warehouse>
         export DATABASE=<database>
-        export SCHEMA=<schema>
-        export SNOWFLAKE_TERRAFORM_PRIVATE_KEY="$(cat "$PARENT_DIR/private_keys/terraform_test_key.p8")"                                    
+        export SCHEMA=<schema>                               
         export SNOWFLAKE_DBT_PRIVATE_KEY="$(cat "$PARENT_DIR/private_keys/dbt_test_key.pem")"
 
+        ```
+
+- ### `terraform-env.sh`
+
+        ```bash
+
+        export SNOWFLAKE_TERRAFORM_PRIVATE_KEY="$(cat "$PARENT_DIR/private_keys/terraform_test_key.p8")"                                    
         export TF_VAR_dbt_public_key="$(grep -v 'PUBLIC KEY' "$PARENT_DIR/public_keys/dbt_test_key.pub" | tr -d '\n')"
 
         ```
