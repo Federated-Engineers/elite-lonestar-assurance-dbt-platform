@@ -11,6 +11,3 @@ dbt test --profiles-dir . --project-dir .
 
 echo "Run all model files holding business logic"
 dbt run --profiles-dir . --project-dir .
-
-echo "Generate documentation files"
-dbt docs generate --profiles-dir . --project-dir .
