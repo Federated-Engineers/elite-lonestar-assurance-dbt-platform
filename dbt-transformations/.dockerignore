@@ -6,3 +6,5 @@ private_keys/
 *.pem
 *env.sh
 *log*
+target/
+dbt_packages/
