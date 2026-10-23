@@ -1,0 +1,5 @@
+
+lonestar/target/
+lonestar/dbt_packages/
+lonestar/macros/
+venv
