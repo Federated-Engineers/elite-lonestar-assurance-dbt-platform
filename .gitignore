@@ -1,0 +1,10 @@
+*.terraform*
+*.tfstate*
+*env
+*keys/
+*.pem
+*env.sh
+*logs
+target/
+dbt_packages/
+logs/
