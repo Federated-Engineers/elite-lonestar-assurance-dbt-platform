@@ -132,34 +132,3 @@ resource "snowflake_grant_privileges_to_account_role" "grant_elementary_tables_f
     }
   }
 }
-
-
-####################################################
-### analyst users
-####################################################
-
-resource "random_password" "federated_analyst1_initial_pass" {
-  length  = 7
-  special = false
-}
-
-resource "snowflake_user" "federated_analyst1" {
-  name                 = "FEDERATED_ANALYST1"
-  default_warehouse    = snowflake_warehouse.lonestar_warehouse.name
-  default_role         = snowflake_account_role.analyst_prod_role.name
-  default_namespace    = snowflake_database.lonestar_prod_db.name
-  display_name         = "analyst_taofeecoh"
-  login_name           = "anataofeecoh"
-  password             = random_password.federated_analyst1_initial_pass.result
-  must_change_password = true
-
-  lifecycle {
-    ignore_changes = [password, must_change_password]
-  }
-}
-
-
-resource "snowflake_grant_account_role" "grant_analyst1" {
-  role_name = snowflake_account_role.engineer_prod_role.name
-  user_name = snowflake_user.federated_analyst1.name
-}
