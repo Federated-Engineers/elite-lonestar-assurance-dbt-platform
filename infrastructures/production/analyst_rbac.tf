@@ -19,7 +19,7 @@ resource "snowflake_grant_privileges_to_account_role" "analyst_prod_role_wh_gran
   privileges        = ["USAGE"]
   on_account_object {
     object_type = "WAREHOUSE"
-    object_name = snowflake_warehouse.lonestar_warehouse.name
+    object_name = module.analyst_prod_warehouse.name
   }
 }
 
