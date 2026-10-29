@@ -13,7 +13,7 @@ resource "snowflake_account_role" "dbt_prod_role" {
 
 resource "snowflake_user" "dbt_service_user" {
   name              = "DBT_PROD_SERVICE_USER"
-  default_warehouse = snowflake_warehouse.lonestar_warehouse.name
+  default_warehouse = module.dbt_prod_warehouse.name
   default_role      = snowflake_account_role.dbt_prod_role.name
   default_namespace = snowflake_database.lonestar_prod_db.name
   rsa_public_key    = data.aws_ssm_parameter.dbt_public_key.value
@@ -35,7 +35,7 @@ resource "snowflake_grant_privileges_to_account_role" "dbt_wh_grants" {
   privileges        = ["USAGE"]
   on_account_object {
     object_type = "WAREHOUSE"
-    object_name = snowflake_warehouse.lonestar_warehouse.name
+    object_name = module.dbt_prod_warehouse.name
   }
 }
 
