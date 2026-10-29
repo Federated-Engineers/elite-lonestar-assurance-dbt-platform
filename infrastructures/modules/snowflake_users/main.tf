@@ -1,16 +1,4 @@
 
-terraform {
-  required_providers {
-    snowflake = {
-      source = "snowflakedb/snowflake"
-    }
-    random = {
-      source = "hashicorp/random"
-    }
-  }
-}
-
-
 resource "random_password" "user_initial_pass" {
   length  = 7
   special = false
