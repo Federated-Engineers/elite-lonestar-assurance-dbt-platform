@@ -5,18 +5,6 @@ resource "snowflake_database" "lonestar_prod_db" {
   is_transient = false
 }
 
-resource "snowflake_warehouse" "lonestar_warehouse" {
-  name                      = "LONESTAR_WH"
-  warehouse_type            = "STANDARD"
-  warehouse_size            = "XSMALL"
-  max_cluster_count         = 1
-  min_cluster_count         = 1
-  auto_suspend              = 300
-  auto_resume               = true
-  enable_query_acceleration = false
-  initially_suspended       = true
-}
-
 
 resource "snowflake_schema" "prod_bronze_schema" {
   name                = "BRONZE"
