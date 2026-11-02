@@ -7,3 +7,8 @@ output "engineer1_password" {
 output "analyst1_password" {
   value = module.federated_analyst1.user_initial_password
 }
+
+
+output "lonestar_aws_integration" {
+  value = snowflake_storage_integration_aws.lonestar.describe_output
+}
