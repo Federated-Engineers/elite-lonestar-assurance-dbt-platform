@@ -1,7 +1,7 @@
 
 
 resource "snowflake_storage_integration_aws" "lonestar" {
-  name                      = "lonestar_aws_int"
+  name                      = "LONESTAR_AWS_INT"
   enabled                   = true
   storage_provider          = "S3"
   storage_allowed_locations = ["s3://lone-star-assurance-lake/"]
