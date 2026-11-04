@@ -32,7 +32,7 @@ resource "snowflake_grant_privileges_to_account_role" "engineer_role_integration
 }
 
 
-resource "snowflake_grant_privileges_to_account_role" "dbt_role_bronze_schema_grants" {
+resource "snowflake_grant_privileges_to_account_role" "engineer_role_bronze_schema_grants" {
   privileges        = ["USAGE"]
   account_role_name = snowflake_account_role.dbt_prod_role.name
   on_schema {
