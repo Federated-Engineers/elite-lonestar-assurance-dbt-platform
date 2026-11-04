@@ -22,6 +22,16 @@ resource "snowflake_grant_account_role" "engineer_inherit_analyst" {
 #################################################
 
 
+resource "snowflake_grant_privileges_to_account_role" "engineer_prod_role_wh_grants" {
+  account_role_name = snowflake_account_role.engineer_prod_role.name
+  privileges        = ["USAGE"]
+  on_account_object {
+    object_type = "WAREHOUSE"
+    object_name = module.engineer_prod_warehouse.name
+  }
+}
+
+
 resource "snowflake_grant_privileges_to_account_role" "engineer_role_integration_grants" {
   privileges        = ["USAGE"]
   account_role_name = snowflake_account_role.engineer_prod_role.name
