@@ -18,8 +18,29 @@ resource "snowflake_grant_account_role" "engineer_inherit_analyst" {
 
 
 #################################################
-### engineer role privileges config for silver schema
+### engineer role privileges config for schemas, integration
 #################################################
+
+
+resource "snowflake_grant_privileges_to_account_role" "engineer_role_integration_grants" {
+  privileges        = ["USAGE"]
+  account_role_name = snowflake_account_role.engineer_prod_role.name
+  on_account_object {
+    object_type = "INTEGRATION"
+    object_name = snowflake_storage_integration_aws.lonestar.name
+  }
+}
+
+
+resource "snowflake_grant_privileges_to_account_role" "dbt_role_bronze_schema_grants" {
+  privileges        = ["USAGE"]
+  account_role_name = snowflake_account_role.dbt_prod_role.name
+  on_schema {
+    schema_name = snowflake_schema.prod_bronze_schema.fully_qualified_name
+  }
+
+}
+
 
 
 resource "snowflake_grant_privileges_to_account_role" "engineer_role_silver_schema_grants" {
