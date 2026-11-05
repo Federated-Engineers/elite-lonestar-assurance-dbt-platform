@@ -17,9 +17,9 @@ resource "snowflake_grant_account_role" "engineer_inherit_analyst" {
 
 
 
-#################################################
-### engineer role privileges config for schemas, integration
-#################################################
+##########################################################
+### engineer role privileges config for account objects
+##########################################################
 
 
 resource "snowflake_grant_privileges_to_account_role" "engineer_prod_role_wh_grants" {
@@ -42,15 +42,36 @@ resource "snowflake_grant_privileges_to_account_role" "engineer_role_integration
 }
 
 
+#######################################################
+### engineer role privileges config for bronze schema
+#######################################################
+
+
 resource "snowflake_grant_privileges_to_account_role" "engineer_role_bronze_schema_grants" {
   privileges        = ["USAGE"]
-  account_role_name = snowflake_account_role.dbt_prod_role.name
+  account_role_name = snowflake_account_role.engineer_prod_role.name
   on_schema {
     schema_name = snowflake_schema.prod_bronze_schema.fully_qualified_name
   }
 
 }
 
+
+resource "snowflake_grant_privileges_to_account_role" "grant_bronze_stages" {
+  privileges        = ["USAGE"]
+  account_role_name = snowflake_account_role.engineer_prod_role.name
+  on_schema_object {
+    all {
+      object_type_plural = "STAGES"
+      in_schema          = snowflake_schema.prod_bronze_schema.fully_qualified_name
+    }
+  }
+}
+
+
+#######################################################
+### engineer role privileges config for silver schema
+#######################################################
 
 
 resource "snowflake_grant_privileges_to_account_role" "engineer_role_silver_schema_grants" {
