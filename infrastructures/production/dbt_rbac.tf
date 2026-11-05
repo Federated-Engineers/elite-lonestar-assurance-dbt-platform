@@ -55,7 +55,7 @@ resource "snowflake_grant_privileges_to_account_role" "dbt_role_database_grants"
 #################################################
 
 resource "snowflake_grant_privileges_to_account_role" "dbt_role_bronze_schema_grants" {
-  privileges        = ["USAGE"]
+  privileges        = ["USAGE", "CREATE TABLE"]
   account_role_name = snowflake_account_role.dbt_prod_role.name
   on_schema {
     schema_name = snowflake_schema.prod_bronze_schema.fully_qualified_name
@@ -64,8 +64,20 @@ resource "snowflake_grant_privileges_to_account_role" "dbt_role_bronze_schema_gr
 }
 
 
+resource "snowflake_grant_privileges_to_account_role" "grant_bronze_tables_all" {
+  privileges        = ["SELECT", "INSERT"]
+  account_role_name = snowflake_account_role.dbt_prod_role.name
+  on_schema_object {
+    all {
+      object_type_plural = "TABLES"
+      in_schema          = snowflake_schema.prod_bronze_schema.fully_qualified_name
+    }
+  }
+}
+
+
 resource "snowflake_grant_privileges_to_account_role" "grant_future_bronze_tables" {
-  privileges        = ["SELECT"]
+  privileges        = ["SELECT", "INSERT"]
   account_role_name = snowflake_account_role.dbt_prod_role.name
   on_schema_object {
     future {
