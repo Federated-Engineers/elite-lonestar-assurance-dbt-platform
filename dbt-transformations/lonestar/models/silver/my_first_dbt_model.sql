@@ -1,4 +1,3 @@
-
 {{ config(materialized='view') }}
 
 with source_data as (
@@ -11,4 +10,3 @@ with source_data as (
 
 select *
 from source_data
-
