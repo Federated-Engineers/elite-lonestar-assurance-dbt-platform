@@ -57,7 +57,7 @@ resource "snowflake_grant_privileges_to_account_role" "engineer_role_bronze_sche
 }
 
 
-resource "snowflake_grant_privileges_to_account_role" "grant_bronze_stages" {
+resource "snowflake_grant_privileges_to_account_role" "engineer_role_bronze_stages_grants" {
   privileges        = ["USAGE"]
   account_role_name = snowflake_account_role.engineer_prod_role.name
   on_schema_object {
