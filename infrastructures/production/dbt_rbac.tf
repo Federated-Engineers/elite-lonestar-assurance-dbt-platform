@@ -55,7 +55,7 @@ resource "snowflake_grant_privileges_to_account_role" "dbt_role_database_grants"
 #################################################
 
 resource "snowflake_grant_privileges_to_account_role" "dbt_role_bronze_schema_grants" {
-  privileges        = ["USAGE", "CREATE TABLE"]
+  privileges        = ["USAGE"]
   account_role_name = snowflake_account_role.dbt_prod_role.name
   on_schema {
     schema_name = snowflake_schema.prod_bronze_schema.fully_qualified_name
@@ -87,6 +87,29 @@ resource "snowflake_grant_privileges_to_account_role" "grant_future_bronze_table
   }
 }
 
+
+resource "snowflake_grant_privileges_to_account_role" "grant_bronze_stages" {
+  privileges        = ["USAGE"]
+  account_role_name = snowflake_account_role.dbt_prod_role.name
+  on_schema_object {
+    all {
+      object_type_plural = "STAGES"
+      in_schema          = snowflake_schema.prod_bronze_schema.fully_qualified_name
+    }
+  }
+}
+
+
+resource "snowflake_grant_privileges_to_account_role" "grant_bronze_file_formats" {
+  privileges        = ["USAGE"]
+  account_role_name = snowflake_account_role.dbt_prod_role.name
+  on_schema_object {
+    all {
+      object_type_plural = "FILE FORMATS"
+      in_schema          = snowflake_schema.prod_bronze_schema.fully_qualified_name
+    }
+  }
+}
 
 
 #################################################
