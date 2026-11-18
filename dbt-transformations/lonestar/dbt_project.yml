@@ -22,3 +22,7 @@ models:
     gold:
       +schema: GOLD
       +materialized: table
+
+data_tests:
+  +store_failures: true
+  +schema: FAILED_TEST
