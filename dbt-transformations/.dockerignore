@@ -8,3 +8,4 @@ private_keys/
 *log*
 target/
 dbt_packages/
+*lock*

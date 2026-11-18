@@ -1,0 +1,67 @@
+version: 2
+models:
+  - name: dim_agent
+    columns:
+      - name: agent_key
+        data_tests: 
+          - not_null
+          - unique
+
+
+  - name: dim_asset
+    columns:
+      - name: asset_key
+        data_tests:        
+          - not_null
+          - unique
+
+
+  - name: dim_customer
+    columns:
+      - name: customer_key
+        data_tests:
+          - not_null
+          - unique
+
+  - name: fact_policy
+    columns:
+      - name: policy_key
+        data_tests:
+          - not_null
+          - unique
+
+      - name: customer_key
+        data_tests:
+          - relationships:
+              arguments:
+                to: ref('dim_customer')
+                field: customer_key
+
+      - name: agent_key
+        data_tests:
+          - relationships:
+              arguments:
+                to: ref('dim_agent')
+                field: agent_key
+
+
+  - name: fact_claim
+    columns:
+      - name: claim_key
+        data_tests: 
+          - not_null
+          - unique
+
+      - name: policy_key
+        data_tests:
+          - relationships:
+              arguments:
+                to: ref('fact_policy')
+                field: policy_key
+
+      - name: asset_key
+        data_tests:
+          - relationships:
+              arguments:
+                to: ref('dim_asset')
+                field: asset_key

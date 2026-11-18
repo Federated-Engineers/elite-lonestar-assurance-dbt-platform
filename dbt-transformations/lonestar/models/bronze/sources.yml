@@ -1,7 +1,0 @@
-
-version: 2
-sources:
-  - name: bronze
-    database: LONESTAR_TEST_DATABASE
-    schema: BRONZE
-    tables: []

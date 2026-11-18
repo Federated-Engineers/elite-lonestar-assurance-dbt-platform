@@ -1,0 +1,157 @@
+version: 2
+models:
+  - name: agents
+    columns:
+      - name: agent_id
+        data_tests:
+          - unique
+          - not_null
+    
+      - name: agency_name
+        data_tests:
+          - not_null
+
+      - name: commission_rate
+        data_tests:
+          - dbt_utils.accepted_range:
+              arguments:
+                min_value: 0
+      
+      - name: sales_region
+        data_tests:
+          - accepted_values:
+              arguments:
+                values: ['Houston Metro', 'Coastal', 'North Texas', 'East Texas']
+
+        
+
+  - name: assets
+    columns:
+      - name: asset_id
+        data_tests:
+          - unique
+          - not_null
+
+      - name: policy_id
+        data_tests:
+          - relationships:
+              arguments:
+                to: ref('policies')
+                field: policy_id
+      
+      - name: asset_category
+        data_tests:
+          - accepted_values:
+              arguments:
+                values: ['Vehicle', 'Primary Residence', 'Rental Property']
+        
+
+  - name: claims
+    columns:
+      - name: claim_id
+        data_tests:
+          - unique
+          - not_null
+
+      - name: policy_id
+        data_tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('policies')
+                field: policy_id
+
+      - name: asset_id
+        data_tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('assets')
+                field: asset_id
+
+      - name: claim_status
+        data_tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values: ['Open', 'Under Review', 'Settled', 'Denied']
+
+      - name: amount_claimed
+        data_tests:
+          - not_null
+          - dbt_utils.accepted_range:
+              arguments:
+                min_value: 0
+
+      - name: amount_paid
+        data_tests:
+          - dbt_utils.accepted_range:
+              arguments:
+                min_value: 0
+
+      - name: incident_date
+        data_tests:
+          - not_null
+
+      - name: file_date
+        data_tests:
+          - not_null
+
+    data_tests:
+      - dbt_utils.expression_is_true:
+          arguments:
+            expression: "amount_paid <= amount_claimed"
+          config: {severity: warn}
+
+      - dbt_utils.expression_is_true:
+          arguments:
+            expression: "file_date >= incident_date"
+          config: {severity: warn}
+
+
+  - name: customers
+    columns:
+      - name: customer_id
+        data_tests:
+          - unique
+          - not_null
+      
+      - name: risk_segment
+        data_tests:
+          - accepted_values: 
+              arguments:
+                values: ['Standard', 'Preferred', 'High']
+
+
+  - name: policies
+    columns:
+      - name: policy_id
+        data_tests:
+          - unique
+          - not_null
+        
+      - name: customer_id
+        data_tests:
+          - relationships:
+              arguments:
+                to: ref('customers')
+                field: customer_id
+
+      - name: agent_id
+        data_tests:
+          - relationships:
+              arguments:
+                to: ref('agents')
+                field: agent_id
+              
+      - name: policy_type
+        data_tests:
+          - accepted_values:
+              arguments:
+                values: ['Flood', 'Auto', 'Homeowners']
+
+      - name: policy_status
+        data_tests:
+          - accepted_values:
+              arguments:
+                values: ['Cancelled', 'Active', 'Lapsed']               
