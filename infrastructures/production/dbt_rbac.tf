@@ -55,12 +55,11 @@ resource "snowflake_grant_privileges_to_account_role" "dbt_role_database_grants"
 #################################################
 
 resource "snowflake_grant_privileges_to_account_role" "dbt_role_bronze_schema_grants" {
-  privileges        = ["USAGE"]
+  privileges        = ["USAGE", "CREATE TABLE"]
   account_role_name = snowflake_account_role.dbt_prod_role.name
   on_schema {
     schema_name = snowflake_schema.prod_bronze_schema.fully_qualified_name
   }
-
 }
 
 
@@ -118,7 +117,7 @@ resource "snowflake_grant_privileges_to_account_role" "grant_bronze_file_formats
 
 
 resource "snowflake_grant_privileges_to_account_role" "dbt_role_silver_schema_grants" {
-  privileges        = ["USAGE", "CREATE TABLE", "CREATE VIEW", "CREATE MATERIALIZED VIEW", "CREATE PROCEDURE", "CREATE STAGE"]
+  privileges        = ["USAGE", "CREATE TABLE", "CREATE VIEW", "CREATE MATERIALIZED VIEW", "CREATE PROCEDURE"]
   account_role_name = snowflake_account_role.dbt_prod_role.name
   on_schema {
     schema_name = snowflake_schema.prod_silver_schema.fully_qualified_name
@@ -132,7 +131,7 @@ resource "snowflake_grant_privileges_to_account_role" "dbt_role_silver_schema_gr
 
 
 resource "snowflake_grant_privileges_to_account_role" "dbt_role_gold_schema_grants" {
-  privileges        = ["USAGE", "CREATE TABLE", "CREATE VIEW", "CREATE MATERIALIZED VIEW", "CREATE PROCEDURE", "CREATE STAGE"]
+  privileges        = ["USAGE", "CREATE TABLE", "CREATE VIEW", "CREATE MATERIALIZED VIEW", "CREATE PROCEDURE"]
   account_role_name = snowflake_account_role.dbt_prod_role.name
   on_schema {
     schema_name = snowflake_schema.prod_gold_schema.fully_qualified_name
