@@ -4,8 +4,9 @@
 *keys/
 *.pem
 *env.sh
-*logs
+*logs/
 target/
 dbt_packages/
-logs/
 test/
+*lock*
+.user*

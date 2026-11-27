@@ -1,11 +1,9 @@
-
 [sqlfluff]
-
-dialect = snowflake
 templater = jinja
-max_line_length = 120
+dialect = snowflake
+exclude_rules = AM04
 
-
-[sqlfluff:templater:dbt]
-project_dir = lonestar/
-profiles_dir = lonestar/
+[sqlfluff:templater:jinja]
+apply_dbt_builtins = True
+load_macros_from_path = lonestar/macros
+library_path = lonestar/sqlfluff_libs
