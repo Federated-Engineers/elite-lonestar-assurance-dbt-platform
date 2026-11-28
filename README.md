@@ -8,6 +8,26 @@ The repo covers:
 - **Platform engineering:** Terraform for Snowflake objects, a Dockerised dbt runtime, and GitHub Actions for CI/CD.
 
 ---
+## Overview
+
+| Section | What it covers |
+|---|---|
+| [Architecture](#architecture) | How data flows from S3 through bronze, silver, and gold, and how CI/CD runs dbt |
+| [Repository structure](#repository-structure) | Folder layout of the repo and of the dbt project |
+| [Data model](#data-model) | The layers, from raw bronze to the gold star schema |
+| &nbsp;&nbsp;↳ [Bronze](#bronze) | Raw JSON loads with file metadata |
+| &nbsp;&nbsp;↳ [Silver](#silver) | Flattened, typed, deduplicated entities |
+| &nbsp;&nbsp;↳ [Data-quality isolation](#data-quality-isolation) | Rules for moving bad rows into `isolated_*` models |
+| &nbsp;&nbsp;↳ [Gold](#gold) | Dimensions and facts of the star schema |
+| [Business questions](#business-questions) | The five questions the marts answer |
+| [Getting started](#getting-started) | Prerequisites, environment variables, setup, and run commands |
+| [Testing](#testing) | Generic and singular tests, and where failing rows are stored |
+| [Linting](#linting) | SQLFluff configuration and usage |
+| [CI/CD](#cicd) | GitHub Actions workflows and the ECS runtime |
+| [Infrastructure](#infrastructure) | Terraform modules for Snowflake users and warehouses |
+| [Environments](#environments) | Test and production targets and their helper scripts |
+
+---
 
 ## Architecture
 
