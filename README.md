@@ -19,7 +19,7 @@ The repo covers:
 | &nbsp;&nbsp;↳ [Silver](#silver) | Flattened, typed, deduplicated entities |
 | &nbsp;&nbsp;↳ [Data-quality isolation](#data-quality-isolation) | Rules for moving bad rows into `isolated_*` models |
 | &nbsp;&nbsp;↳ [Gold](#gold) | Dimensions and facts of the star schema |
-| [Business questions](#business-questions) | The five questions the marts answer |
+| [Business questions](#business-questions) | The businessquestions the marts answer |
 | [Getting started](#getting-started) | Prerequisites, environment variables, setup, and run commands |
 | [Testing](#testing) | Generic and singular tests, and where failing rows are stored |
 | [Linting](#linting) | SQLFluff configuration and usage |
