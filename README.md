@@ -1,25 +1,5 @@
 # Lonestar Assurance dbt-Platform
 
-This dcoument has a walkthrough of how to use this repository to setup the dbt platform.
-
-
-- ## containerize dbt
-        - cd into the dockerfile directory
-        - build dbt-docker base image: `docker build -t <image-name:version-tag> .`
-        - source the environment variables script: `source <path/to/env.sh>`
-        - run container to test connection:
-
-            ```bash
-            docker run --rm --name <project-container-name> -e <environment variables> <image-name> <command>
-
-            # sample below
-            docker run --rm --name project-container-name \
-            -e DBT_SNOWFLAKE_ACOUNT \
-            -e <ANOTHER_VARIABLE> \
-            image-name debug
-            ```
-
-
 A Snowflake analytics platform for an insurance company. Daily JSON extracts land in S3, are loaded into a Snowflake bronze layer, and are transformed by dbt Core into tested silver and gold layers that answer business questions on exposure, agent performance, claims operations, cross-sell, and high-value asset risk.
 
 The repo covers:
